@@ -2,362 +2,106 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Что смотрит Натали</title>
 
 <style>
-:root {
+:root{
   --bg:#190b12;
   --wine:#4d1728;
   --wine2:#70263c;
   --gold:#d8ad55;
   --gold2:#f3d98a;
-  --cream:#f7eddb;
+  --text:#f7eddb;
   --muted:#c5aeb0;
   --line:#694050;
   --card:#321522;
 }
-
-* { box-sizing:border-box; }
-
-body {
+*{box-sizing:border-box}
+body{
   margin:0;
-  background:
-    radial-gradient(circle at top right,#70263c 0,transparent 32%),
-    var(--bg);
-  color:var(--cream);
-  font-family:Georgia,"Times New Roman",serif;
+  color:var(--text);
+  background:radial-gradient(circle at top right,#70263c,transparent 35%),var(--bg);
+  font-family:Georgia,serif;
 }
-
-.container {
-  max-width:1150px;
-  margin:auto;
-  padding:25px 20px 45px;
-}
-
-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  padding-bottom:22px;
-  border-bottom:1px solid var(--line);
-}
-
-.logo {
-  color:var(--gold2);
-  font-size:clamp(22px,4vw,34px);
-  font-weight:bold;
-}
-
-.logo span { margin-right:8px; }
-
-.share {
-  padding:10px 16px;
+.container{max-width:1150px;margin:auto;padding:24px 18px 45px}
+header,.archive,footer{display:flex;justify-content:space-between;align-items:center;gap:18px}
+header{padding-bottom:22px;border-bottom:1px solid var(--line)}
+.logo{color:var(--gold2);font-size:clamp(21px,4vw,33px);font-weight:bold}
+button{cursor:pointer}
+.add,.share,.save,.empty button{
   border:1px solid var(--gold);
   border-radius:30px;
-  background:transparent;
-  color:var(--gold2);
+  padding:11px 16px;
+  font-weight:bold;
 }
-
-.intro {
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  gap:25px;
-  padding:65px 0 45px;
-}
-
-.label {
-  margin-bottom:12px;
-  color:var(--gold);
-  text-transform:uppercase;
-  letter-spacing:3px;
-  font:12px Arial,sans-serif;
-}
-
-h1 {
-  margin:0;
-  font-size:clamp(43px,8vw,82px);
-  line-height:.95;
-  letter-spacing:-3px;
-}
-
-h1 span { color:var(--gold2); }
-
-.stats {
-  display:flex;
-  gap:25px;
-}
-
-.stat {
-  padding-left:15px;
-  border-left:1px solid var(--line);
-}
-
-.stat strong {
-  display:block;
-  color:var(--gold2);
-  font-size:30px;
-}
-
-.stat small {
-  color:var(--muted);
-  font:13px Arial,sans-serif;
-}
-
-.months {
-  display:flex;
-  gap:7px;
-  overflow-x:auto;
-  padding:16px 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-}
-
-.months button {
-  flex-shrink:0;
-  padding:10px 15px;
-  border:1px solid transparent;
-  border-radius:12px;
-  background:transparent;
-  color:var(--muted);
-}
-
-.months button.active,
-.months button:hover {
-  border-color:var(--gold);
-  background:var(--wine);
-  color:var(--gold2);
-}
-
-.months sup {
-  margin-left:5px;
-  color:var(--gold);
-}
-
-.archive {
-  display:flex;
-  justify-content:space-between;
-  align-items:end;
-  padding:45px 0 22px;
-  border-bottom:1px solid var(--line);
-}
-
-h2 {
-  margin:0;
-  font-size:clamp(30px,5vw,48px);
-}
-
-.archive p {
-  margin:0;
-  color:var(--muted);
-}
-
-.empty {
-  padding:90px 20px;
-  text-align:center;
-  color:var(--muted);
-}
-
-.empty-icon {
-  margin-bottom:20px;
-  font-size:55px;
-}
-
-.empty h3 {
-  margin:0 0 10px;
-  color:var(--cream);
-  font-size:25px;
-}
-
-.empty p {
-  margin:0;
-  font:15px Arial,sans-serif;
-}
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  padding-top:25px;
-}
-
-.card {
-  overflow:hidden;
-  border:1px solid #754255;
-  border-radius:17px;
-  background:var(--card);
-  cursor:pointer;
-  transition:.2s;
-}
-
-.card:hover {
-  transform:translateY(-5px);
-  border-color:var(--gold);
-}
-
-.poster {
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  justify-content:end;
-  aspect-ratio:2/2.8;
-  padding:17px;
-  background:linear-gradient(145deg,#70263c,#26101b);
-}
-
-.poster img {
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-}
-
-.poster-content {
-  position:relative;
-  z-index:1;
-}
-
-.poster h3 {
-  margin:0;
-  font-size:22px;
-  line-height:1.05;
-  text-shadow:0 2px 5px #000;
-}
-
-.info {
-  padding:14px;
-}
-
-.info-title {
-  margin-bottom:12px;
-  font-size:19px;
-}
-
-.meta {
-  display:flex;
-  gap:7px;
-  align-items:center;
-  flex-wrap:wrap;
-  color:var(--muted);
-  font:12px Arial,sans-serif;
-}
-
-.badge,
-.rating {
-  padding:6px 9px;
-  border:1px solid #8b6470;
-  border-radius:20px;
-}
-
-.rating {
-  margin-left:auto;
-  border-color:var(--gold);
-  color:var(--gold2);
-}
-
-footer {
-  display:flex;
-  justify-content:space-between;
-  margin-top:55px;
-  padding-top:18px;
-  border-top:1px solid var(--line);
-  color:#a2858d;
-  font:13px Arial,sans-serif;
-}
-
-.modal-bg {
-  position:fixed;
-  inset:0;
-  z-index:5;
-  display:none;
-  place-items:center;
-  padding:20px;
-  background:#090308cc;
-  backdrop-filter:blur(8px);
-}
-
-.modal {
-  position:relative;
-  width:min(520px,100%);
-  max-height:90vh;
-  overflow:auto;
-  padding:25px;
-  border:1px solid var(--gold);
-  border-radius:20px;
-  background:var(--card);
-  box-shadow:0 20px 60px #000;
-}
-
-.close {
-  position:absolute;
-  top:14px;
-  right:17px;
-  border:0;
-  background:transparent;
-  color:var(--cream);
-  font-size:25px;
-}
-
-.modal-poster {
-  width:100%;
-  aspect-ratio:2/1;
-  display:grid;
-  place-items:center;
-  margin-bottom:22px;
-  border-radius:13px;
-  background:linear-gradient(145deg,#70263c,#24101a);
-  font-size:55px;
-}
-
-.modal h2 {
-  margin-bottom:10px;
-  color:var(--gold2);
-  font-size:34px;
-}
-
-.modal-meta {
-  margin-bottom:20px;
-  color:var(--muted);
-  font:14px Arial,sans-serif;
-}
-
-.description {
-  color:var(--cream);
-  font:16px/1.55 Arial,sans-serif;
-}
-
-@media(max-width:850px) {
-  .grid { grid-template-columns:repeat(2,1fr); }
-  .intro { display:block; }
-  .stats { margin-top:30px; }
-}
-
-@media(max-width:500px) {
-  .container { padding:18px 14px 35px; }
-  .logo { font-size:21px; }
-  .share { font-size:0; padding:13px; }
-  .share::after { content:"↗"; font-size:20px; }
-  h1 { font-size:52px; }
-  .grid { gap:10px; }
-  .poster { padding:12px; }
-  .poster h3 { font-size:18px; }
-  .info { padding:10px; }
-  .info-title { font-size:16px; }
-  .rating { margin-left:0; }
-  footer { display:block; line-height:2; }
+.add,.save{background:linear-gradient(135deg,#9c6534,#d8ad55);color:#291017}
+.share,.empty button{background:transparent;color:var(--gold2)}
+.intro{display:flex;justify-content:space-between;align-items:end;padding:62px 0 44px}
+.label{margin-bottom:12px;color:var(--gold);text-transform:uppercase;letter-spacing:3px;font:12px Arial}
+h1{margin:0;font-size:clamp(43px,8vw,82px);line-height:.95;letter-spacing:-3px}
+h1 span{color:var(--gold2)}
+.stats{display:flex;gap:22px}
+.stat{padding-left:14px;border-left:1px solid var(--line)}
+.stat strong{display:block;color:var(--gold2);font-size:30px}
+.stat small{color:var(--muted);font:13px Arial}
+.months{display:flex;gap:6px;overflow:auto;padding:15px 0;border-block:1px solid var(--line)}
+.months button{flex-shrink:0;padding:10px 13px;border:1px solid transparent;border-radius:12px;background:transparent;color:var(--muted)}
+.months button.active,.months button:hover{border-color:var(--gold);background:var(--wine);color:var(--gold2)}
+.months sup{color:var(--gold);margin-left:4px}
+.archive{align-items:end;padding:42px 0 20px;border-bottom:1px solid var(--line)}
+h2{margin:0;font-size:clamp(29px,5vw,46px)}
+.archive p{margin:0;color:var(--muted);font:14px Arial}
+.empty{text-align:center;padding:75px 10px;color:var(--muted)}
+.empty-icon{font-size:54px;margin-bottom:14px}
+.empty h3{margin:0 0 9px;color:var(--text);font-size:25px}
+.empty p{margin:0;font:15px Arial}
+.empty button{margin-top:20px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:17px;padding-top:24px}
+.card{overflow:hidden;border:1px solid #754255;border-radius:16px;background:var(--card);cursor:pointer;transition:.2s}
+.card:hover{transform:translateY(-4px);border-color:var(--gold)}
+.poster{position:relative;display:flex;flex-direction:column;justify-content:end;aspect-ratio:2/2.8;padding:15px;background:linear-gradient(145deg,#70263c,#26101b)}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster-text{position:relative;z-index:1}
+.poster h3{margin:0;font-size:21px;line-height:1.05;text-shadow:0 2px 5px #000}
+.info{padding:13px}
+.info-title{min-height:42px;margin-bottom:11px;font-size:18px}
+.meta{display:flex;align-items:center;flex-wrap:wrap;gap:6px;color:var(--muted);font:12px Arial}
+.badge,.rating{padding:6px 8px;border:1px solid #8b6470;border-radius:20px}
+.rating{margin-left:auto;border-color:var(--gold);color:var(--gold2)}
+footer{margin-top:52px;padding-top:17px;border-top:1px solid var(--line);color:#a2858d;font:13px Arial}
+.modal-bg{position:fixed;inset:0;z-index:4;display:none;place-items:center;padding:18px;background:#090308cc;backdrop-filter:blur(7px)}
+.modal{position:relative;width:min(520px,100%);max-height:92vh;overflow:auto;padding:25px;border:1px solid var(--gold);border-radius:20px;background:var(--card);box-shadow:0 20px 60px #000}
+.close{position:absolute;right:15px;top:10px;border:0;background:none;color:var(--text);font-size:28px}
+.modal h2{margin:0 0 20px;color:var(--gold2);font-size:32px}
+form{display:grid;gap:13px}
+label{display:grid;gap:6px;color:var(--muted);font:13px Arial}
+input,select,textarea{width:100%;padding:11px;border:1px solid #805163;border-radius:9px;background:#210d17;color:var(--text);font:15px Arial}
+textarea{min-height:100px;resize:vertical}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.detail-poster{width:100%;height:230px;display:grid;place-items:center;margin-bottom:18px;border-radius:12px;background:linear-gradient(145deg,#70263c,#24101a);font-size:55px;overflow:hidden}
+.detail-poster img{width:100%;height:100%;object-fit:cover}
+.detail-meta{margin-bottom:17px;color:var(--muted);font:14px Arial}
+.description{color:var(--text);font:16px/1.55 Arial}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.intro{display:block}.stats{margin-top:28px}}
+@media(max-width:500px){
+  .container{padding:18px 13px 35px}
+  .logo{font-size:20px}
+  .add{font-size:0;padding:12px}.add:after{content:"＋";font-size:21px}
+  .share{font-size:0;padding:12px}.share:after{content:"↗";font-size:20px}
+  h1{font-size:52px}.grid{gap:10px}.poster{padding:11px}.poster h3{font-size:18px}
+  .info{padding:10px}.info-title{font-size:16px}.rating{margin-left:0}
+  .row{grid-template-columns:1fr}footer{display:block;line-height:2}
 }
 </style>
 </head>
 
 <body>
-
 <div class="container">
 
 <header>
-  <div class="logo"><span>🎬</span> Что смотрит Натали</div>
+  <div class="logo">🎬 Что смотрит Натали</div>
+  <button class="add" onclick="openAdd()">Добавить фильм</button>
   <button class="share" onclick="shareSite()">Поделиться</button>
 </header>
 
@@ -368,20 +112,9 @@ footer {
   </div>
 
   <div class="stats">
-    <div class="stat">
-      <strong id="total">0</strong>
-      <small>просмотров</small>
-    </div>
-
-    <div class="stat">
-      <strong id="films">0</strong>
-      <small>фильмов</small>
-    </div>
-
-    <div class="stat">
-      <strong id="serials">0</strong>
-      <small>сериалов</small>
-    </div>
+    <div class="stat"><strong id="total">0</strong><small>просмотров</small></div>
+    <div class="stat"><strong id="filmCount">0</strong><small>фильмов</small></div>
+    <div class="stat"><strong id="serialCount">0</strong><small>сериалов</small></div>
   </div>
 </section>
 
@@ -412,7 +145,8 @@ footer {
 <div id="empty" class="empty">
   <div class="empty-icon">🎞️</div>
   <h3>Здесь пока пусто</h3>
-  <p>Первый просмотр скоро появится в этом архиве.</p>
+  <p>Добавьте свой первый фильм.</p>
+  <button onclick="openAdd()">＋ Добавить первый фильм</button>
 </div>
 
 <main id="grid" class="grid"></main>
@@ -421,74 +155,144 @@ footer {
   <span>Мой маленький архив больших историй</span>
   <span>2026 · Натали</span>
 </footer>
-
 </div>
 
-<div id="modalBg" class="modal-bg" onclick="closeModal(event)">
+<div id="addModal" class="modal-bg">
   <div class="modal">
-    <button class="close" onclick="closeModal()">×</button>
-    <div id="modalPoster" class="modal-poster">🎬</div>
-    <h2 id="modalTitle"></h2>
-    <div id="modalMeta" class="modal-meta"></div>
-    <div id="modalDescription" class="description"></div>
+    <button class="close" onclick="closeAdd()">×</button>
+    <h2>Добавить фильм</h2>
+
+    <form onsubmit="addMovie(event)">
+      <label>Название
+        <input id="title" required placeholder="Например, Интерстеллар">
+      </label>
+
+      <div class="row">
+        <label>Год
+          <input id="year" type="number" required placeholder="2014">
+        </label>
+
+        <label>Месяц
+          <select id="month">
+            <option value="january">Январь</option>
+            <option value="february">Февраль</option>
+            <option value="march">Март</option>
+            <option value="april">Апрель</option>
+            <option value="may">Май</option>
+            <option value="june">Июнь</option>
+            <option value="july">Июль</option>
+            <option value="august">Август</option>
+            <option value="september" selected>Сентябрь</option>
+            <option value="october">Октябрь</option>
+            <option value="november">Ноябрь</option>
+            <option value="december">Декабрь</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="row">
+        <label>Тип
+          <select id="type">
+            <option>Фильм</option>
+            <option>Сериал</option>
+            <option>Мультсериал</option>
+          </select>
+        </label>
+
+        <label>Оценка
+          <input id="rating" type="number" min="1" max="10" required placeholder="9">
+        </label>
+      </div>
+
+      <label>Ссылка на постер
+        <input id="poster" type="url" placeholder="https://...">
+      </label>
+
+      <label>Краткое описание
+        <textarea id="description" required placeholder="Напишите краткое описание фильма"></textarea>
+      </label>
+
+      <button class="save" type="submit">Сохранить фильм</button>
+    </form>
+  </div>
+</div>
+
+<div id="detailModal" class="modal-bg">
+  <div class="modal">
+    <button class="close" onclick="closeDetail()">×</button>
+    <div id="detailPoster" class="detail-poster">🎬</div>
+    <h2 id="detailTitle"></h2>
+    <div id="detailMeta" class="detail-meta"></div>
+    <div id="detailDescription" class="description"></div>
   </div>
 </div>
 
 <script>
-/*
-  Здесь позже будут фильмы.
-  Сейчас список пустой специально.
-
-  Пример одной записи:
-
-  {
-    title: "Интерстеллар",
-    year: "2014",
-    month: "september",
-    type: "Фильм",
-    rating: "10",
-    description: "Краткое описание фильма.",
-    poster: ""
-  }
-*/
-
-const movies = [];
+let movies = JSON.parse(localStorage.getItem("natalyMovies") || "[]");
+let currentMonth = "all";
 
 const monthNames = {
-  all: "Все просмотры",
-  january: "Январь 2026",
-  february: "Февраль 2026",
-  march: "Март 2026",
-  april: "Апрель 2026",
-  may: "Май 2026",
-  june: "Июнь 2026",
-  july: "Июль 2026",
-  august: "Август 2026",
-  september: "Сентябрь 2026",
-  october: "Октябрь 2026",
-  november: "Ноябрь 2026",
-  december: "Декабрь 2026"
+  all:"Все просмотры",
+  january:"Январь 2026",
+  february:"Февраль 2026",
+  march:"Март 2026",
+  april:"Апрель 2026",
+  may:"Май 2026",
+  june:"Июнь 2026",
+  july:"Июль 2026",
+  august:"Август 2026",
+  september:"Сентябрь 2026",
+  october:"Октябрь 2026",
+  november:"Ноябрь 2026",
+  december:"Декабрь 2026"
 };
 
-function showMovies(month = "all") {
-  const grid = document.getElementById("grid");
-  const empty = document.getElementById("empty");
+function openAdd(){
+  document.getElementById("addModal").style.display="grid";
+}
 
-  const selected = month === "all"
+function closeAdd(){
+  document.getElementById("addModal").style.display="none";
+}
+
+function addMovie(event){
+  event.preventDefault();
+
+  movies.unshift({
+    title:document.getElementById("title").value,
+    year:document.getElementById("year").value,
+    month:document.getElementById("month").value,
+    type:document.getElementById("type").value,
+    rating:document.getElementById("rating").value,
+    poster:document.getElementById("poster").value,
+    description:document.getElementById("description").value
+  });
+
+  localStorage.setItem("natalyMovies",JSON.stringify(movies));
+  event.target.reset();
+  closeAdd();
+  render();
+}
+
+function render(){
+  const grid=document.getElementById("grid");
+  const empty=document.getElementById("empty");
+
+  const visible=currentMonth==="all"
     ? movies
-    : movies.filter(movie => movie.month === month);
+    : movies.filter(movie=>movie.month===currentMonth);
 
-  grid.innerHTML = "";
+  grid.innerHTML="";
 
-  selected.forEach((movie, index) => {
-    const card = document.createElement("article");
-    card.className = "card";
-    card.onclick = () => openMovie(index, selected);
+  visible.forEach(movie=>{
+    const card=document.createElement("article");
+    card.className="card";
+    card.onclick=()=>openDetail(movie);
 
-    card.innerHTML = `
+    card.innerHTML=`
       <div class="poster">
         ${movie.poster ? `<img src="${movie.poster}" alt="">` : ""}
-        <div class="poster-content">
+        <div class="poster-text">
           <h3>${movie.title}</h3>
         </div>
       </div>
@@ -505,68 +309,53 @@ function showMovies(month = "all") {
     grid.appendChild(card);
   });
 
-  empty.style.display = selected.length ? "none" : "block";
-  document.getElementById("counter").textContent =
-    selected.length + " записей";
-  document.getElementById("archiveTitle").textContent =
-    monthNames[month];
+  empty.style.display=visible.length ? "none" : "block";
+  document.getElementById("counter").textContent=visible.length+" записей";
+  document.getElementById("archiveTitle").textContent=monthNames[currentMonth];
+
+  document.getElementById("total").textContent=movies.length;
+  document.getElementById("filmCount").textContent=
+    movies.filter(movie=>movie.type==="Фильм").length;
+  document.getElementById("serialCount").textContent=
+    movies.filter(movie=>movie.type!=="Фильм").length;
 }
 
-function filterMonth(month, button) {
+function filterMonth(month,button){
+  currentMonth=month;
+
   document.querySelectorAll(".months button")
-    .forEach(item => item.classList.remove("active"));
+    .forEach(item=>item.classList.remove("active"));
 
   button.classList.add("active");
-  showMovies(month);
+  render();
 }
 
-function openMovie(index, selected) {
-  const movie = selected[index];
-
-  document.getElementById("modalTitle").textContent = movie.title;
-  document.getElementById("modalMeta").textContent =
+function openDetail(movie){
+  document.getElementById("detailTitle").textContent=movie.title;
+  document.getElementById("detailMeta").textContent=
     `${movie.year} · ${movie.type} · Оценка ${movie.rating}/10`;
-  document.getElementById("modalDescription").textContent =
+  document.getElementById("detailDescription").textContent=
     movie.description;
 
-  const poster = document.getElementById("modalPoster");
+  const poster=document.getElementById("detailPoster");
 
-  if (movie.poster) {
-    poster.innerHTML = `<img src="${movie.poster}" style="width:100%;height:100%;object-fit:cover;border-radius:13px;">`;
-  } else {
-    poster.innerHTML = "🎬";
-  }
+  poster.innerHTML=movie.poster
+    ? `<img src="${movie.poster}" alt="">`
+    : "🎬";
 
-  document.getElementById("modalBg").style.display = "grid";
+  document.getElementById("detailModal").style.display="grid";
 }
 
-function closeModal(event) {
-  if (!event || event.target.id === "modalBg" ||
-      event.target.className === "close") {
-    document.getElementById("modalBg").style.display = "none";
-  }
+function closeDetail(){
+  document.getElementById("detailModal").style.display="none";
 }
 
-function shareSite() {
-  if (navigator.share) {
-    navigator.share({
-      title: "Что смотрит Натали",
-      text: "Мой дневник фильмов и сериалов",
-      url: window.location.href
-    });
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    alert("Ссылка скопирована");
-  }
+function shareSite(){
+  navigator.clipboard.writeText(window.location.href);
+  alert("Ссылка скопирована");
 }
 
-document.getElementById("total").textContent = movies.length;
-document.getElementById("films").textContent =
-  movies.filter(movie => movie.type === "Фильм").length;
-document.getElementById("serials").textContent =
-  movies.filter(movie => movie.type !== "Фильм").length;
-
-showMovies();
+render();
 </script>
 
 </body>
