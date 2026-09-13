@@ -1,13 +1,573 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Что смотрит Натали</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Что смотрит Натали</title>
+
+<style>
+:root {
+  --bg:#190b12;
+  --wine:#4d1728;
+  --wine2:#70263c;
+  --gold:#d8ad55;
+  --gold2:#f3d98a;
+  --cream:#f7eddb;
+  --muted:#c5aeb0;
+  --line:#694050;
+  --card:#321522;
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:
+    radial-gradient(circle at top right,#70263c 0,transparent 32%),
+    var(--bg);
+  color:var(--cream);
+  font-family:Georgia,"Times New Roman",serif;
+}
+
+.container {
+  max-width:1150px;
+  margin:auto;
+  padding:25px 20px 45px;
+}
+
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  padding-bottom:22px;
+  border-bottom:1px solid var(--line);
+}
+
+.logo {
+  color:var(--gold2);
+  font-size:clamp(22px,4vw,34px);
+  font-weight:bold;
+}
+
+.logo span { margin-right:8px; }
+
+.share {
+  padding:10px 16px;
+  border:1px solid var(--gold);
+  border-radius:30px;
+  background:transparent;
+  color:var(--gold2);
+}
+
+.intro {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:25px;
+  padding:65px 0 45px;
+}
+
+.label {
+  margin-bottom:12px;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font:12px Arial,sans-serif;
+}
+
+h1 {
+  margin:0;
+  font-size:clamp(43px,8vw,82px);
+  line-height:.95;
+  letter-spacing:-3px;
+}
+
+h1 span { color:var(--gold2); }
+
+.stats {
+  display:flex;
+  gap:25px;
+}
+
+.stat {
+  padding-left:15px;
+  border-left:1px solid var(--line);
+}
+
+.stat strong {
+  display:block;
+  color:var(--gold2);
+  font-size:30px;
+}
+
+.stat small {
+  color:var(--muted);
+  font:13px Arial,sans-serif;
+}
+
+.months {
+  display:flex;
+  gap:7px;
+  overflow-x:auto;
+  padding:16px 0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.months button {
+  flex-shrink:0;
+  padding:10px 15px;
+  border:1px solid transparent;
+  border-radius:12px;
+  background:transparent;
+  color:var(--muted);
+}
+
+.months button.active,
+.months button:hover {
+  border-color:var(--gold);
+  background:var(--wine);
+  color:var(--gold2);
+}
+
+.months sup {
+  margin-left:5px;
+  color:var(--gold);
+}
+
+.archive {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  padding:45px 0 22px;
+  border-bottom:1px solid var(--line);
+}
+
+h2 {
+  margin:0;
+  font-size:clamp(30px,5vw,48px);
+}
+
+.archive p {
+  margin:0;
+  color:var(--muted);
+}
+
+.empty {
+  padding:90px 20px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.empty-icon {
+  margin-bottom:20px;
+  font-size:55px;
+}
+
+.empty h3 {
+  margin:0 0 10px;
+  color:var(--cream);
+  font-size:25px;
+}
+
+.empty p {
+  margin:0;
+  font:15px Arial,sans-serif;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  padding-top:25px;
+}
+
+.card {
+  overflow:hidden;
+  border:1px solid #754255;
+  border-radius:17px;
+  background:var(--card);
+  cursor:pointer;
+  transition:.2s;
+}
+
+.card:hover {
+  transform:translateY(-5px);
+  border-color:var(--gold);
+}
+
+.poster {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:end;
+  aspect-ratio:2/2.8;
+  padding:17px;
+  background:linear-gradient(145deg,#70263c,#26101b);
+}
+
+.poster img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.poster-content {
+  position:relative;
+  z-index:1;
+}
+
+.poster h3 {
+  margin:0;
+  font-size:22px;
+  line-height:1.05;
+  text-shadow:0 2px 5px #000;
+}
+
+.info {
+  padding:14px;
+}
+
+.info-title {
+  margin-bottom:12px;
+  font-size:19px;
+}
+
+.meta {
+  display:flex;
+  gap:7px;
+  align-items:center;
+  flex-wrap:wrap;
+  color:var(--muted);
+  font:12px Arial,sans-serif;
+}
+
+.badge,
+.rating {
+  padding:6px 9px;
+  border:1px solid #8b6470;
+  border-radius:20px;
+}
+
+.rating {
+  margin-left:auto;
+  border-color:var(--gold);
+  color:var(--gold2);
+}
+
+footer {
+  display:flex;
+  justify-content:space-between;
+  margin-top:55px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+  color:#a2858d;
+  font:13px Arial,sans-serif;
+}
+
+.modal-bg {
+  position:fixed;
+  inset:0;
+  z-index:5;
+  display:none;
+  place-items:center;
+  padding:20px;
+  background:#090308cc;
+  backdrop-filter:blur(8px);
+}
+
+.modal {
+  position:relative;
+  width:min(520px,100%);
+  max-height:90vh;
+  overflow:auto;
+  padding:25px;
+  border:1px solid var(--gold);
+  border-radius:20px;
+  background:var(--card);
+  box-shadow:0 20px 60px #000;
+}
+
+.close {
+  position:absolute;
+  top:14px;
+  right:17px;
+  border:0;
+  background:transparent;
+  color:var(--cream);
+  font-size:25px;
+}
+
+.modal-poster {
+  width:100%;
+  aspect-ratio:2/1;
+  display:grid;
+  place-items:center;
+  margin-bottom:22px;
+  border-radius:13px;
+  background:linear-gradient(145deg,#70263c,#24101a);
+  font-size:55px;
+}
+
+.modal h2 {
+  margin-bottom:10px;
+  color:var(--gold2);
+  font-size:34px;
+}
+
+.modal-meta {
+  margin-bottom:20px;
+  color:var(--muted);
+  font:14px Arial,sans-serif;
+}
+
+.description {
+  color:var(--cream);
+  font:16px/1.55 Arial,sans-serif;
+}
+
+@media(max-width:850px) {
+  .grid { grid-template-columns:repeat(2,1fr); }
+  .intro { display:block; }
+  .stats { margin-top:30px; }
+}
+
+@media(max-width:500px) {
+  .container { padding:18px 14px 35px; }
+  .logo { font-size:21px; }
+  .share { font-size:0; padding:13px; }
+  .share::after { content:"↗"; font-size:20px; }
+  h1 { font-size:52px; }
+  .grid { gap:10px; }
+  .poster { padding:12px; }
+  .poster h3 { font-size:18px; }
+  .info { padding:10px; }
+  .info-title { font-size:16px; }
+  .rating { margin-left:0; }
+  footer { display:block; line-height:2; }
+}
+</style>
 </head>
 
 <body>
-  <h1>🎬 Что смотрит Натали</h1>
-  <p>Мой личный дневник фильмов и сериалов</p>
+
+<div class="container">
+
+<header>
+  <div class="logo"><span>🎬</span> Что смотрит Натали</div>
+  <button class="share" onclick="shareSite()">Поделиться</button>
+</header>
+
+<section class="intro">
+  <div>
+    <div class="label">Личный дневник просмотров</div>
+    <h1>Смотрю,<br><span>выбираю.</span></h1>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <strong id="total">0</strong>
+      <small>просмотров</small>
+    </div>
+
+    <div class="stat">
+      <strong id="films">0</strong>
+      <small>фильмов</small>
+    </div>
+
+    <div class="stat">
+      <strong id="serials">0</strong>
+      <small>сериалов</small>
+    </div>
+  </div>
+</section>
+
+<nav class="months">
+  <button class="active" onclick="filterMonth('all',this)">Все <sup>0</sup></button>
+  <button onclick="filterMonth('january',this)">Янв <sup>0</sup></button>
+  <button onclick="filterMonth('february',this)">Фев <sup>0</sup></button>
+  <button onclick="filterMonth('march',this)">Мар <sup>0</sup></button>
+  <button onclick="filterMonth('april',this)">Апр <sup>0</sup></button>
+  <button onclick="filterMonth('may',this)">Май <sup>0</sup></button>
+  <button onclick="filterMonth('june',this)">Июн <sup>0</sup></button>
+  <button onclick="filterMonth('july',this)">Июл <sup>0</sup></button>
+  <button onclick="filterMonth('august',this)">Авг <sup>0</sup></button>
+  <button onclick="filterMonth('september',this)">Сен <sup>0</sup></button>
+  <button onclick="filterMonth('october',this)">Окт <sup>0</sup></button>
+  <button onclick="filterMonth('november',this)">Ноя <sup>0</sup></button>
+  <button onclick="filterMonth('december',this)">Дек <sup>0</sup></button>
+</nav>
+
+<section class="archive">
+  <div>
+    <div class="label">Архив</div>
+    <h2 id="archiveTitle">Все просмотры</h2>
+  </div>
+  <p id="counter">0 записей</p>
+</section>
+
+<div id="empty" class="empty">
+  <div class="empty-icon">🎞️</div>
+  <h3>Здесь пока пусто</h3>
+  <p>Первый просмотр скоро появится в этом архиве.</p>
+</div>
+
+<main id="grid" class="grid"></main>
+
+<footer>
+  <span>Мой маленький архив больших историй</span>
+  <span>2026 · Натали</span>
+</footer>
+
+</div>
+
+<div id="modalBg" class="modal-bg" onclick="closeModal(event)">
+  <div class="modal">
+    <button class="close" onclick="closeModal()">×</button>
+    <div id="modalPoster" class="modal-poster">🎬</div>
+    <h2 id="modalTitle"></h2>
+    <div id="modalMeta" class="modal-meta"></div>
+    <div id="modalDescription" class="description"></div>
+  </div>
+</div>
+
+<script>
+/*
+  Здесь позже будут фильмы.
+  Сейчас список пустой специально.
+
+  Пример одной записи:
+
+  {
+    title: "Интерстеллар",
+    year: "2014",
+    month: "september",
+    type: "Фильм",
+    rating: "10",
+    description: "Краткое описание фильма.",
+    poster: ""
+  }
+*/
+
+const movies = [];
+
+const monthNames = {
+  all: "Все просмотры",
+  january: "Январь 2026",
+  february: "Февраль 2026",
+  march: "Март 2026",
+  april: "Апрель 2026",
+  may: "Май 2026",
+  june: "Июнь 2026",
+  july: "Июль 2026",
+  august: "Август 2026",
+  september: "Сентябрь 2026",
+  october: "Октябрь 2026",
+  november: "Ноябрь 2026",
+  december: "Декабрь 2026"
+};
+
+function showMovies(month = "all") {
+  const grid = document.getElementById("grid");
+  const empty = document.getElementById("empty");
+
+  const selected = month === "all"
+    ? movies
+    : movies.filter(movie => movie.month === month);
+
+  grid.innerHTML = "";
+
+  selected.forEach((movie, index) => {
+    const card = document.createElement("article");
+    card.className = "card";
+    card.onclick = () => openMovie(index, selected);
+
+    card.innerHTML = `
+      <div class="poster">
+        ${movie.poster ? `<img src="${movie.poster}" alt="">` : ""}
+        <div class="poster-content">
+          <h3>${movie.title}</h3>
+        </div>
+      </div>
+      <div class="info">
+        <div class="info-title">${movie.title}</div>
+        <div class="meta">
+          <span>${movie.year}</span>
+          <span class="badge">${movie.type}</span>
+          <span class="rating">★ ${movie.rating}/10</span>
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  empty.style.display = selected.length ? "none" : "block";
+  document.getElementById("counter").textContent =
+    selected.length + " записей";
+  document.getElementById("archiveTitle").textContent =
+    monthNames[month];
+}
+
+function filterMonth(month, button) {
+  document.querySelectorAll(".months button")
+    .forEach(item => item.classList.remove("active"));
+
+  button.classList.add("active");
+  showMovies(month);
+}
+
+function openMovie(index, selected) {
+  const movie = selected[index];
+
+  document.getElementById("modalTitle").textContent = movie.title;
+  document.getElementById("modalMeta").textContent =
+    `${movie.year} · ${movie.type} · Оценка ${movie.rating}/10`;
+  document.getElementById("modalDescription").textContent =
+    movie.description;
+
+  const poster = document.getElementById("modalPoster");
+
+  if (movie.poster) {
+    poster.innerHTML = `<img src="${movie.poster}" style="width:100%;height:100%;object-fit:cover;border-radius:13px;">`;
+  } else {
+    poster.innerHTML = "🎬";
+  }
+
+  document.getElementById("modalBg").style.display = "grid";
+}
+
+function closeModal(event) {
+  if (!event || event.target.id === "modalBg" ||
+      event.target.className === "close") {
+    document.getElementById("modalBg").style.display = "none";
+  }
+}
+
+function shareSite() {
+  if (navigator.share) {
+    navigator.share({
+      title: "Что смотрит Натали",
+      text: "Мой дневник фильмов и сериалов",
+      url: window.location.href
+    });
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    alert("Ссылка скопирована");
+  }
+}
+
+document.getElementById("total").textContent = movies.length;
+document.getElementById("films").textContent =
+  movies.filter(movie => movie.type === "Фильм").length;
+document.getElementById("serials").textContent =
+  movies.filter(movie => movie.type !== "Фильм").length;
+
+showMovies();
+</script>
+
 </body>
 </html>
